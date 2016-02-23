@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Transclude1</title>
+    <script src="http://cdn.staticfile.org/angular.js/1.2.10/angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="MainController">
+        <div class="a">
+            <p>china</p>
+            <hello-world>{{name}}</hello-world>
+        </div>
+    </div>
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('MainController',function($scope){
+        $scope.name = '雷锋';
+    });
+    app.directive('helloWorld',function(){
+        return {
+            scope:{},
+            restrict:'AE',
+            transclude:'element',//element，必须设置replace为true
+            replace:true,//如果为真，替换当前元素，如果为假或未指定，拼接到当前元素
+            template:'<div class="b"><div ng-transclude>你看不见我</div></div>'
+        }
+    });
+</script>
+</body>
+</html>

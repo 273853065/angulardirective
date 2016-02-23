@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="http://cdn.staticfile.org/angular.js/1.2.10/angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="MainController">
+        <input type="text" ng-model="color" placeholder="Enter a color" />
+        <hello-world></hello-world>
+    </div>
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('MainController',function(){});
+    app.directive('helloWorld',function(){
+        return{
+            scope:false,
+            restrict:'AE',
+            replace:true,
+            template:'<p style="background-color:{{color}}">Hello World</p>'
+        }
+    });
+//    scope不同值代表的含义
+//    1、false，儿子继承父亲的值，改变父亲的值，儿子的值也随之变化，反之亦如此。（继承不隔离）
+//    2、true，儿子继承父亲的值，改变父亲的值，儿子的值随之变化，但是改变儿子的值，父亲的值不变。（继承隔离）
+//    3、{}，没有继承父亲的值，所以儿子的值为空，改变任何一方的值均不能影响另一方的值。（不继承隔离）
+</script>
+</body>
+</html>
