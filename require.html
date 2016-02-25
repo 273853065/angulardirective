@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--<script src="http://cdn.staticfile.org/angular.js/1.2.10/angular.min.js"></script>-->
+    <script src="//cdn.bootcss.com/angular.js/1.2.28/angular.min.js"></script>
+</head>
+<body>
+    <outer-directive>
+        <inner-directive></inner-directive>
+        <inner-directive2></inner-directive2>
+    </outer-directive>
+<script>
+    var app = angular.module('myApp',[]);
+    app.directive('outerDirective',function(){
+       return {
+           scope:{},
+           restrict:'AE',
+           controller:function($scope){
+               this.say = function(someDirective){
+                   console.log('Got ' + someDirective.message);
+               };
+           }
+       };
+    });
+    app.directive('innerDirective',function(){
+        return {
+            scope:{},
+            restrict:'AE',
+            require:'^outerDirective',
+            link:function(scope,elem,attrs,controllerInstance){
+                scope.message = "Hi,雷锋！";
+                controllerInstance.say(scope);
+            }
+        };
+    });
+    app.directive('innerDirective2',function(){
+        return {
+            scope:{},
+            restrict:'AE',
+            require:'^outerDirective',
+            link:function(scope,elem,attrs,controllerInstance){
+                scope.message = "Hi,叔叔！";
+                controllerInstance.say(scope);
+            }
+        };
+    });
+</script>
+</body>
+</html>
